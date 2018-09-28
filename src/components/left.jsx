@@ -6,6 +6,7 @@ class NewComponentLeft extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            filterName: ''
         }
         // this.showRoom(this.props.listgroup)
     }
@@ -13,6 +14,7 @@ class NewComponentLeft extends React.Component {
         let channel = [];
         let group = [];
         let messages = [];
+        var {filterName} = this.state;
 
         listRooms.forEach(item => {
             switch (item.t) {
@@ -27,7 +29,11 @@ class NewComponentLeft extends React.Component {
                     break;
             }
         })
-
+        if(filterName){
+            channel =channel.filter((item)=>{
+                return item.name.toLowerCase().indexOf(filterName) !== -1;
+            })
+        }
         return (
             <ul className="list">
                 <p className="chann">CHANNEL</p>
@@ -62,15 +68,30 @@ class NewComponentLeft extends React.Component {
     handleClose = () => {
         this.setState({ anchorEl: null });
     };
+    onChange = (event)=>{
+        var name = event.target.name;
+        var value = event.target.value;
+
+        this.setState({
+            [name] : value
+        })
+    }
     render() {
         var users = this.state.allUser;
+        var {filterName} = this.state;
         return (
             <div className="people-list" id="people-list">
                 <div className="borderBottom_tmt">
                     <CpmBoxInfo infor={this.props.infor} status={this.props.status} onStatusChange={this.props.onStatusChange} />
                 </div>
                 <div className="search">
-                    <input type="text" placeholder="search Channel" />
+                    <input
+                        type="text"
+                        placeholder="search Channel"
+                        name="filterName"
+                        value={filterName}
+                        onChange={this.onChange}
+                    />
                     <i className="fa fa-search" onClick={this.btnSearch} />
                     <div className="dropdown">
                         <i className="glyphicon glyphicon-sort" data-toggle="dropdown" onClick={this.handleClick} />

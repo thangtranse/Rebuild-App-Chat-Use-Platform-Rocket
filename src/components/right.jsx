@@ -9,7 +9,8 @@ class NewComponentRight extends React.Component {
         this.state = {
             allUser: [],
             userInChannel: [],
-            isAllUser: true
+            isAllUser: true,
+            filterName: ''
         };
         this.fetchInterval = null; //Fetch user interval
     }
@@ -45,15 +46,36 @@ class NewComponentRight extends React.Component {
     showChannelUser() {
         this.fetchInterval && clearInterval(this.fetchInterval); //Clear
     }
+    onChange =(event)=>{
+        var name = event.target.name;
+        var value = event.target.value;
+        this.setState({
+            [name] : value
+        })
+    }
     render() {
-        const data =
+        var data =
             (this.state.isAllUser && (this.state.allUser || [])) ||
             _.get(this.props.userInChannel, "data.members") ||
             [];
+        var {filterName,allUser}= this.state;
+        if(filterName){
+            data = data.filter((user)=>{
+                if(user.name){
+                    return user.name.toLowerCase().indexOf(filterName) !== -1;
+                }
+            })
+        }
         return (
             <div className="people-list" id="people-list">
                 <div className="search">
-                    <input type="text" placeholder="search" />
+                    <input
+                        type="text"
+                        placeholder="search"
+                        name="filterName"
+                        value={filterName}
+                        onChange={this.onChange}
+                    />
                     <i className="fa fa-search" />
                 </div>
                 <div className="btn-group btn-group2">
@@ -64,7 +86,7 @@ class NewComponentRight extends React.Component {
                     <ul className="list list-user">
                         {
                             data.map(user => (
-                                <li onClick={() => this.props.getDirectRoom(user._id, user.username)} button key={`section_${user._id}`} className="clearfix glow Hover">
+                                <li onClick={() => this.props.getDirectRoom(user._id, user.username)}  key={`section_${user._id}`} className="clearfix glow Hover">
                                     <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" />
                                     <div className="about">
                                         <div className="name">{user.name}</div>
