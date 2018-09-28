@@ -269,6 +269,7 @@ class App extends React.Component {
                             .reverse()
                             .value()}
                     />
+                    // test
                     <NewComponentRight userInChannel={this.state.userInChannel}
                                        allUser={this.state.allUser}
                                        getDirectRoom={this.getDirectRoom}/>
