@@ -6,7 +6,9 @@ class NewComponentLeft extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            filterName: ''
+            filterName: '',
+            sortBy : 'name',
+            sortValue :1
         }
         // this.showRoom(this.props.listgroup)
     }
@@ -14,7 +16,7 @@ class NewComponentLeft extends React.Component {
         let channel = [];
         let group = [];
         let messages = [];
-        var {filterName} = this.state;
+        var {filterName,sortBy,sortValue} = this.state;
 
         listRooms.forEach(item => {
             switch (item.t) {
@@ -32,6 +34,13 @@ class NewComponentLeft extends React.Component {
         if(filterName){
             channel =channel.filter((item)=>{
                 return item.name.toLowerCase().indexOf(filterName) !== -1;
+            })
+        }
+        if(sortBy === "name"){
+            channel = channel.sort((a,b)=>{
+                if(a.name > b.name) return sortValue;
+                else if(a.name < b.name) return -sortValue;
+                    else return 0;
             })
         }
         return (
@@ -76,6 +85,12 @@ class NewComponentLeft extends React.Component {
             [name] : value
         })
     }
+    onClick = (sortBy,sortValue)=>{
+        this.setState({
+            sortBy : sortBy ,
+            sortValue : sortValue
+        })
+    }
     render() {
         var users = this.state.allUser;
         var {filterName} = this.state;
@@ -96,11 +111,11 @@ class NewComponentLeft extends React.Component {
                     <div className="dropdown">
                         <i className="glyphicon glyphicon-sort" data-toggle="dropdown" onClick={this.handleClick} />
                         <ul className="dropdown-menu box_tmt colorText_tmt cursor_tmt">
-                            <li>
+                            <li onClick={()=>this.onClick("name", 1)}>
                                 <i className="sort_tmt glyphicon glyphicon-sort-by-alphabet" onClick={this.handleClose} />
                                 &nbsp;A-Z
                             </li>
-                            <li>
+                            <li onClick={()=>this.onClick("name", -1)}>
                                 <i className="sort_tmt glyphicon glyphicon-sort-by-alphabet-alt" onClick={this.handleClose} />
                                 &nbsp;Z-A
                             </li>
