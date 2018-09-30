@@ -43,6 +43,13 @@ class NewComponentLeft extends React.Component {
                     else return 0;
             })
         }
+        if(sortBy === "time"){
+            channel = channel.sort((a,b)=>{
+                if(a._updatedAt > b._updatedAt) return sortValue;
+                else if(a._updatedAt < b._updatedAt) return -sortValue;
+                else return 0;
+            })
+        }
         return (
             <ul className="list">
                 <p className="chann">CHANNEL</p>
@@ -119,7 +126,7 @@ class NewComponentLeft extends React.Component {
                                 <i className="sort_tmt glyphicon glyphicon-sort-by-alphabet-alt" onClick={this.handleClose} />
                                 &nbsp;Z-A
                             </li>
-                            <li>
+                            <li onClick={()=>this.onClick("time", -1)}>
                                 <i className="sort_tmt glyphicon glyphicon-sort-by-attributes" onClick={this.handleClose} />
                                 &nbsp;Time
                             </li>

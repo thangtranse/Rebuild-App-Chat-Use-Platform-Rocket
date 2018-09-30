@@ -176,7 +176,7 @@ class App extends React.Component {
             this.setState({idApirealtime: newID});
 
             api.getImHistory(resp.data.room._id, resp => {
-                this.setState({messHistory: resp})
+                this.setState({messHistory: resp});
             })
         })
     }

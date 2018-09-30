@@ -11,10 +11,13 @@ class NewComponentChat extends React.Component{
     }
     showMessage = messHistory => {
         if (messHistory) {
-            let listmess = messHistory
+            // messHistory.map((mes) =>{
+            //     console.log("messsssss : "+mes);
+            // })
+            let listmess = messHistory;
             return listmess.map(message => (
                 <div key={`div_${message._id}`} className="showPop">
-                    {this.CpmMessageItem(message.u.username, message.msg, message.u._id === sessionStorage.getItem("userId"))}
+                    {this.CpmMessageItem(message.u.username, message.msg,message.ts , message.u._id === sessionStorage.getItem("userId"))}
                 </div>
             ));
         }
@@ -30,7 +33,14 @@ class NewComponentChat extends React.Component{
      * @returns {*}
      * @constructor
      */
-    CpmMessageItem(user, message, isSender) {
+    handleTimeMessage(timeMessage){
+        let time = "";
+        let date = timeMessage.substr(0,10);
+        let hour = timeMessage.substr(11,5);
+        time = hour + " , " + date;
+        return time;
+    }
+    CpmMessageItem=(user, message,timeMessage, isSender ) =>{
 
         var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
         var regex = new RegExp(expression);
@@ -44,7 +54,7 @@ class NewComponentChat extends React.Component{
             <div>
                 <li className="clearfix">
                     <div className="message-data align-right">
-                        <span className="message-data-time">Today</span> &nbsp; &nbsp;
+                        <span className="message-data-time">{this.handleTimeMessage(timeMessage)}</span> &nbsp; &nbsp;
                         <span className="message-data-name">{user}</span><i className="fa fa-circle me" />
                     </div>
                     <div className="message other-message float-right"> {message.match(regex) ? this.attachFile(message) : message} </div>
@@ -55,7 +65,7 @@ class NewComponentChat extends React.Component{
                 <li>
                     <div className="message-data">
                         <span className="message-data-name"><i className="fa fa-circle online" />{user}</span>
-                        <span className="message-data-time">Today</span> &nbsp; &nbsp;
+                        <span className="message-data-time">{this.handleTimeMessage(timeMessage)}</span> &nbsp; &nbsp;
                     </div>
                     <div className="message my-message"> {message.match(regex) ? this.attachFile(message) : message} </div>
                 </li>
