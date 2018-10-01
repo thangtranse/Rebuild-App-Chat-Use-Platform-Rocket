@@ -2,7 +2,7 @@ import React from 'react';
 import '../asset/css/style.css';
 import CpmInputMessages from './cpmInputMessages'
 
-class NewComponentChat extends React.Component{
+class NewComponentChat extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -10,14 +10,11 @@ class NewComponentChat extends React.Component{
         };
     }
     showMessage = messHistory => {
-        if (messHistory) {
-            // messHistory.map((mes) =>{
-            //     console.log("messsssss : "+mes);
-            // })
-            let listmess = messHistory;
+        if (messHistory && messHistory.data.messages.length > 0) {
+            let listmess = messHistory.data.messages;
             return listmess.map(message => (
                 <div key={`div_${message._id}`} className="showPop">
-                    {this.CpmMessageItem(message.u.username, message.msg,message.ts , message.u._id === sessionStorage.getItem("userId"))}
+                    {this.CpmMessageItem(message.u.username, message.msg, message.ts, message.u._id === sessionStorage.getItem("userId"))}
                 </div>
             ));
         }
@@ -33,14 +30,14 @@ class NewComponentChat extends React.Component{
      * @returns {*}
      * @constructor
      */
-    handleTimeMessage(timeMessage){
+    handleTimeMessage(timeMessage) {
         let time = "";
-        let date = timeMessage.substr(0,10);
-        let hour = timeMessage.substr(11,5);
+        let date = timeMessage.substr(0, 10);
+        let hour = timeMessage.substr(11, 5);
         time = hour + " , " + date;
         return time;
     }
-    CpmMessageItem=(user, message,timeMessage, isSender ) =>{
+    CpmMessageItem = (user, message, timeMessage, isSender) => {
 
         var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
         var regex = new RegExp(expression);
@@ -61,16 +58,16 @@ class NewComponentChat extends React.Component{
                 </li>
             </div>
         ) : (
-            <div>
-                <li>
-                    <div className="message-data">
-                        <span className="message-data-name"><i className="fa fa-circle online" />{user}</span>
-                        <span className="message-data-time">{this.handleTimeMessage(timeMessage)}</span> &nbsp; &nbsp;
+                <div>
+                    <li>
+                        <div className="message-data">
+                            <span className="message-data-name"><i className="fa fa-circle online" />{user}</span>
+                            <span className="message-data-time">{this.handleTimeMessage(timeMessage)}</span> &nbsp; &nbsp;
                     </div>
-                    <div className="message my-message"> {message.match(regex) ? this.attachFile(message) : message} </div>
-                </li>
-            </div>
-        );
+                        <div className="message my-message"> {message.match(regex) ? this.attachFile(message) : message} </div>
+                    </li>
+                </div>
+            );
     }
     /**
      * Hiển thị tin nhắn dựa tên URL
@@ -81,37 +78,37 @@ class NewComponentChat extends React.Component{
     attachFile(_message) {
         return (
             <div>
-                <img src={_message} className="imgCover"/>
+                <img src={_message} className="imgCover" />
             </div>
         )
     }
-  render(){
-    return (
-        <div className="chat">
-            <div className="chat-header clearfix">
-              <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" />
-              <div className="chat-about">
-                <div className="chat-with">Chat with  " {this.props.titleHeader} "</div>
-                <div className="chat-num-messages">already 1 902 messages</div>
-              </div>
-              <i className="fa fa-star" />
-            </div> {/* end chat-header */}
-            <div className="chat-history">
-              <ul>
-                  {this.showMessage(this.props.messHistory)}
-                <li>
-                  <i className="fa fa-circle online" />
-                  <i className="fa fa-circle online" style={{color: '#AED2A6'}} />
-                  <i className="fa fa-circle online" style={{color: '#DAE9DA'}} />
-                </li>
-              </ul>
-            </div> {/* end chat-history */}
-            <CpmInputMessages uploadFile={this.props.uploadFile} rid={this.props.rid}/>
-        </div>
-    );
-  }
+    render() {
+        return (
+            <div className="chat">
+                <div className="chat-header clearfix">
+                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" />
+                    <div className="chat-about">
+                        <div className="chat-with">Chat with  " {this.props.titleHeader} "</div>
+                        <div className="chat-num-messages">already 1 902 messages</div>
+                    </div>
+                    <i className="fa fa-star" />
+                </div> {/* end chat-header */}
+                <div className="chat-history">
+                    <ul>
+                        {this.showMessage(this.props.messHistory)}
+                        <li>
+                            <i className="fa fa-circle online" />
+                            <i className="fa fa-circle online" style={{ color: '#AED2A6' }} />
+                            <i className="fa fa-circle online" style={{ color: '#DAE9DA' }} />
+                        </li>
+                    </ul>
+                </div> {/* end chat-history */}
+                <CpmInputMessages uploadFile={this.props.uploadFile} rid={this.props.rid} />
+            </div>
+        );
+    }
 }
 
-export default  NewComponentChat;
+export default NewComponentChat;
 // export { NewComponentChat };    //import { NewComponentChat } from ...
 // export const abc = 1;

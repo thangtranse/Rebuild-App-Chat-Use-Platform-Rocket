@@ -48,7 +48,7 @@ class App extends React.Component {
                     console.log("Realtime Direct running ", result);
                 }
             });
-            this.setState({isConnect: true})
+            this.setState({ isConnect: true })
             ddpclient.subscribeNotifyUser(sessionStorage.getItem("userId"));
             ddpclient.listen((resp) => {
                 let temp = JSON.parse(resp)
@@ -59,10 +59,10 @@ class App extends React.Component {
     }
 
     handleDrawerToggle_left = () => {
-        this.setState(state => ({mobileOpen_left: !state.mobileOpen_left}));
+        this.setState(state => ({ mobileOpen_left: !state.mobileOpen_left }));
     };
     handleDrawerToggle_right = () => {
-        this.setState(state => ({mobileOpen_right: !state.mobileOpen_right}));
+        this.setState(state => ({ mobileOpen_right: !state.mobileOpen_right }));
     };
 
     // Nhận username password
@@ -77,7 +77,7 @@ class App extends React.Component {
     /**
      * Thực hiện đăng ký kết nối Socket với server
      */
-    login = (e)=> {
+    login = (e) => {
         console.log("start login")
         api.login(document.getElementById("username").value, document.getElementById("password").value, response => {
             sessionStorage.setItem('authToken', response.data.data.authToken);
@@ -113,13 +113,13 @@ class App extends React.Component {
                 // Direct
                 if (resp.fields.eventName.length > 25) {
                     api.getImHistory(resp.fields.eventName, resp => {
-                        this.setState({messHistory: resp})
+                        this.setState({ messHistory: resp })
                     })
                 }
                 // Channel
                 else {
                     api.getChannelMessHistory(resp.fields.eventName, resp => {
-                        this.setState({messHistory: resp})
+                        this.setState({ messHistory: resp })
                     })
                 }
         }
@@ -132,7 +132,7 @@ class App extends React.Component {
      * @param roomId
      */
     getChannel(roomId, roomName) {
-        console.log("aaaaa"+ roomId,"-",roomName);
+        console.log("aaaaa" + roomId, "-", roomName);
         this.setState({
             roomId: roomId,
             titleHeader: roomName,
@@ -148,11 +148,11 @@ class App extends React.Component {
 
         // Lấy data message
         api.getChannelMessHistory(roomId, resp => {
-            this.setState({messHistory: resp})
+            this.setState({ messHistory: resp })
         })
         // list user trong room
         api.getUserInChannel(roomId, resp => {
-            this.setState({userInChannel: resp})
+            this.setState({ userInChannel: resp })
         })
     }
 
@@ -170,13 +170,13 @@ class App extends React.Component {
 
         // tạo phòng chat Direct
         api.createIM(partnerId, resp => {
-            this.setState({roomId: resp.data.room._id})
+            this.setState({ roomId: resp.data.room._id })
 
             let newID = ddpclient.subscribelRoom(resp.data.room._id)
-            this.setState({idApirealtime: newID});
+            this.setState({ idApirealtime: newID });
 
             api.getImHistory(resp.data.room._id, resp => {
-                this.setState({messHistory: resp});
+                this.setState({ messHistory: resp });
             })
         })
     }
@@ -241,7 +241,7 @@ class App extends React.Component {
     }
 
     statusChange(status) {
-        this.connectDDP(() => {})
+        this.connectDDP(() => { })
         ddpclient.changeStatus(
             status,
             (...args) => {
@@ -250,9 +250,9 @@ class App extends React.Component {
             },
         )
     }
-    render(){
-        if(this.state.isLogin){
-            return(
+    render() {
+        if (this.state.isLogin) {
+            return (
                 <div className="clearfix">
                     <NewComponentLeft
                         listgroup={this.state.listGroup}
@@ -263,24 +263,20 @@ class App extends React.Component {
                         uploadFile={this.uploadFile}
                         titleHeader={this.state.titleHeader}
                         rid={this.state.roomId}
-                        messHistory={_(_(this.state.messHistory).get('data.messages') || [])
-                            .chain()
-                            .clone()
-                            .reverse()
-                            .value()}
+                        messHistory={this.state.messHistory}
                     />
                     // test
                     <NewComponentRight userInChannel={this.state.userInChannel}
-                                       allUser={this.state.allUser}
-                                       getDirectRoom={this.getDirectRoom}/>
+                        allUser={this.state.allUser}
+                        getDirectRoom={this.getDirectRoom} />
                 </div>
             )
         }
-        else{
+        else {
             return (
                 <Login open={this.state.open}
-                          onChange ={this.inputChange}
-                          onLogin ={this.login}
+                    onChange={this.inputChange}
+                    onLogin={this.login}
                 />
             )
         }
