@@ -53,7 +53,9 @@ class NewComponentRight extends React.Component {
             [name]: value
         })
     }
+    
     render() {
+        
         var data = (this.state.isAllUser && (this.state.allUser || [])) || _.get(this.props.userInChannel, "data.members") || [];
         var { filterName, allUser } = this.state;
         if (filterName) {
@@ -63,6 +65,7 @@ class NewComponentRight extends React.Component {
                 }
             })
         }
+
         return (
             <div className="people-list" id="people-list">
                 <div className="search">

@@ -43,15 +43,17 @@ body {
 }
 .people-list ul {
   padding: 5px 10px;
-  height: 75vh !important;
+  height: 75vh;
   overflow: auto;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 .people-list ul li {
-  padding-bottom: 20px;
+  padding: 10px;
   display: flex;
 }
+
+
 .people-list img {
   float: left;
 }
@@ -514,7 +516,10 @@ input[type="checkbox"]:disabled + .label-text:before{
   cursor: pointer;
 }
 
-
+.dropdown_tmt{
+  position: absolute;
+  height: auto !important;
+}
 
 ::-webkit-scrollbar-track
  {

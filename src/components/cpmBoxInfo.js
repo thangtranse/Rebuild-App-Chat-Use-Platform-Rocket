@@ -38,7 +38,6 @@ class cpmBoxInfo extends React.Component {
     }
 
     getChannelName = (event) => {
-        console.log("tttttttttttttttttttttttt");
         this.setState({ channelName: event.target.value })
     }
 
