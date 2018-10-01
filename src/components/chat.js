@@ -9,12 +9,15 @@ class NewComponentChat extends React.Component {
             anchorEl: null
         };
     }
-    showMessage = messHistory => {
-        if (messHistory && messHistory.data.messages.length > 0) {
-            let listmess = messHistory.data.messages;
+    showMessage = messHistory => {      
+        if (messHistory) {
+            // messHistory.map((mes) =>{
+            //     console.log("messsssss : "+mes);
+            // })
+            let listmess = messHistory;
             return listmess.map(message => (
                 <div key={`div_${message._id}`} className="showPop">
-                    {this.CpmMessageItem(message.u.username, message.msg, message.ts, message.u._id === sessionStorage.getItem("userId"))}
+                    {this.CpmMessageItem(message.u.username, message.msg,message.ts , message.u._id === sessionStorage.getItem("userId"))}
                 </div>
             ));
         }

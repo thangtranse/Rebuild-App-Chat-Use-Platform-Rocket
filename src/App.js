@@ -263,9 +263,13 @@ class App extends React.Component {
                         uploadFile={this.uploadFile}
                         titleHeader={this.state.titleHeader}
                         rid={this.state.roomId}
-                        messHistory={this.state.messHistory}
+                        messHistory={_(_(this.state.messHistory).get('data.messages') || [])
+                            .chain()
+                            .clone()
+                            .reverse()
+                            .value()
+                        }
                     />
-                    // test
                     <NewComponentRight userInChannel={this.state.userInChannel}
                         allUser={this.state.allUser}
                         getDirectRoom={this.getDirectRoom} />

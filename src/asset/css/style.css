@@ -19,6 +19,7 @@ body {
 .people-list {
   width: 25%;
   float: left;
+  height: 100vh !important;
 }
 .people-list .search {
   padding: 5px;
@@ -73,9 +74,11 @@ body {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   color: #434651;
+  height: 100vh !important;
 }
 .chat .chat-header {
-  padding: 20px;
+  height: 10vh;
+  padding: 10px 5px;
   border-bottom: 2px solid white;
 }
 .chat .chat-header img {
@@ -100,7 +103,8 @@ body {
   margin-top: 12px;
 }
 .chat .chat-history {
-  padding: 30px 30px 20px;
+  padding: 10px 20px 20px;
+  height: 70vh;
   border-bottom: 2px solid white;
   overflow-y: scroll;
 }
@@ -157,7 +161,8 @@ body {
   width: 12px;
   background-color: #F5F5F5; }
 .chat .chat-message {
-  padding: 30px;
+  padding: 10px;
+  height: auto;
 }
 .scrollbar-primary::-webkit-scrollbar-thumb {
   border-radius: 10px;
@@ -508,6 +513,31 @@ input[type="checkbox"]:disabled + .label-text:before{
 .cursor_tmt{
   cursor: pointer;
 }
+
+
+
+::-webkit-scrollbar-track
+ {
+   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+   background-color: #F5F5F5;
+ }
+ 
+::-webkit-scrollbar
+ {
+   width: 10px;
+   background-color: #F5F5F5;
+ }
+ 
+::-webkit-scrollbar-thumb
+ {
+   background-color: #0ae;
+   background-image: -webkit-gradient(linear, 0 0, 0 100%,
+                      color-stop(.5, rgba(255, 255, 255, .2)),
+              color-stop(.5, transparent), to(transparent));
+ }
+ 
+ 
+
 /*Responsive*/
 @media all and (max-width: 600px){
   .Channel{
