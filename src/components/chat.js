@@ -31,11 +31,11 @@ class NewComponentChat extends React.Component {
      * @constructor
      */
     handleTimeMessage(timeMessage) {
-        let time = "";
-        let date = timeMessage.substr(0, 10);
-        let hour = timeMessage.substr(11, 5);
-        time = hour + " , " + date;
-        return time;
+        // let time = "";
+        // let date = timeMessage.substr(0, 10);
+        // let hour = timeMessage.substr(11, 5);
+        // time = hour + " , " + date;
+        return timeMessage;
     }
     CpmMessageItem = (user, message, timeMessage, isSender) => {
 
