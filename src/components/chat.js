@@ -9,6 +9,13 @@ class NewComponentChat extends React.Component {
             anchorEl: null
         };
     }
+    countMess = messHistory =>{
+        var total = 0;
+        messHistory.map( mess =>{
+            if(mess._id) total+= 1;
+        })
+        return total;
+    }
     showMessage = messHistory => {
         if (messHistory) {
             // messHistory.map((mes) =>{
@@ -33,12 +40,15 @@ class NewComponentChat extends React.Component {
      * @returns {*}
      * @constructor
      */
-    handleTimeMessage(timeMessage) {
-        let time = "";
-        let date = timeMessage.substr(0, 10);
-        let hour = timeMessage.substr(11, 5);
-        time = hour + " , " + date;
-        return time;
+    handleTimeMessage(timeMessage){
+        // let time = "";
+        // let date = timeMessage.substr(0, 10);
+        // let hour = timeMessage.substr(11, 5);
+        // time = hour + " , " + date;
+        var d = new Date(timeMessage);
+        d = d.toString();
+        d = d.substr(0,24);
+        return d;
     }
     CpmMessageItem = (user, message, timeMessage, isSender) => {
 
@@ -105,7 +115,7 @@ class NewComponentChat extends React.Component {
                     <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" />
                     <div className="chat-about">
                         <div className="chat-with">Chat with  " {this.props.titleHeader} "</div>
-                        <div className="chat-num-messages">already 1 902 messages</div>
+                        <div className="chat-num-messages">already {this.countMess(this.props.messHistory)} messages</div>
                     </div>
                     <i className="fa fa-star" />
                 </div> {/* end chat-header */}
