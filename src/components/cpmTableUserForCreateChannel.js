@@ -103,7 +103,7 @@ class EnhancedTable extends React.Component {
                                         <div className="form-check" onClick={event => this.handleClick(event, user.username)}>
                                             <label>
                                                 <input type="checkbox" name="check" />
-                                                <span className="label-text">{user.username}</span>
+                                                <span    className="label-text">{user.username}</span>
                                             </label>
                                         </div>
                                     );
