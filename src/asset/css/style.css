@@ -109,6 +109,7 @@ body {
   height: 70vh;
   border-bottom: 2px solid white;
   overflow-y: scroll;
+  height: 575px;
 }
 .chat .chat-history .message-data {
   margin-bottom: 15px;

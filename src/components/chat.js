@@ -39,12 +39,20 @@ class NewComponentChat extends React.Component {
      * @param isSender
      * @returns {*}
      * @constructor
-     */
-    handleTimeMessage(timeMessage){
-        // let time = "";
-        // let date = timeMessage.substr(0, 10);
-        // let hour = timeMessage.substr(11, 5);
-        // time = hour + " , " + date;
+*/
+handleTimeMessage(timeMessage) {
+// <<<<<<< dktung
+//     handleTimeMessage(timeMessage) {
+// =======
+//     handleTimeMessage(timeMessage){
+// >>>>>>> master
+//         // let time = "";
+//         // let date = timeMessage.substr(0, 10);
+//         // let hour = timeMessage.substr(11, 5);
+//         // time = hour + " , " + date;
+// <<<<<<< dktung
+//         return timeMessage;
+// =======
         var d = new Date(timeMessage);
         d = d.toString();
         d = d.substr(0,24);
