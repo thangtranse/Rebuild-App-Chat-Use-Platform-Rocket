@@ -21,7 +21,7 @@ class DropDownMenu extends React.Component {
             <div className="alignCenterHeight_tmt dropdown">
                 <a href="#" className="iconSize_tmt" data-toggle="dropdown" onClick={this.handleClick}>
                     <span className="glyphicon glyphicon-menu-hamburger"></span></a>
-                <ul className="dropdown-menu box_tmt">
+                <ul className="dropdown_tmt dropdown-menu box_tmt colorText_tmt cursor_tmt">
                     {items.map(item => (
                         <li>
                             <a onClick={() => {

@@ -9,9 +9,19 @@ class NewComponentChat extends React.Component {
             anchorEl: null
         };
     }
+    countMess = messHistory =>{
+        var total = 0;
+        messHistory.map( mess =>{
+            if(mess._id) total+= 1;
+        })
+        return total;
+    }
     showMessage = messHistory => {
-        if (messHistory && messHistory.data.messages.length > 0) {
-            let listmess = messHistory.data.messages;
+        if (messHistory) {
+            // messHistory.map((mes) =>{
+            //     console.log("messsssss : "+mes);
+            // })
+            let listmess = messHistory;
             return listmess.map(message => (
                 <div key={`div_${message._id}`} className="showPop">
                     {this.CpmMessageItem(message.u.username, message.msg, message.ts, message.u._id === sessionStorage.getItem("userId"))}
@@ -29,13 +39,24 @@ class NewComponentChat extends React.Component {
      * @param isSender
      * @returns {*}
      * @constructor
-     */
-    handleTimeMessage(timeMessage) {
-        // let time = "";
-        // let date = timeMessage.substr(0, 10);
-        // let hour = timeMessage.substr(11, 5);
-        // time = hour + " , " + date;
-        return timeMessage;
+*/
+handleTimeMessage(timeMessage) {
+// <<<<<<< dktung
+//     handleTimeMessage(timeMessage) {
+// =======
+//     handleTimeMessage(timeMessage){
+// >>>>>>> master
+//         // let time = "";
+//         // let date = timeMessage.substr(0, 10);
+//         // let hour = timeMessage.substr(11, 5);
+//         // time = hour + " , " + date;
+// <<<<<<< dktung
+//         return timeMessage;
+// =======
+        var d = new Date(timeMessage);
+        d = d.toString();
+        d = d.substr(0,24);
+        return d;
     }
     CpmMessageItem = (user, message, timeMessage, isSender) => {
 
@@ -82,6 +103,19 @@ class NewComponentChat extends React.Component {
             </div>
         )
     }
+
+    scrollToBottom = () => {
+        this.messagesEnd.scrollIntoView({ behavior: "smooth" });
+    }
+
+    componentDidMount() {
+        this.scrollToBottom();
+    }
+
+    componentDidUpdate() {
+        this.scrollToBottom();
+    }
+    
     render() {
         return (
             <div className="chat">
@@ -89,12 +123,12 @@ class NewComponentChat extends React.Component {
                     <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" />
                     <div className="chat-about">
                         <div className="chat-with">Chat with  " {this.props.titleHeader} "</div>
-                        <div className="chat-num-messages">already 1 902 messages</div>
+                        <div className="chat-num-messages">already {this.countMess(this.props.messHistory)} messages</div>
                     </div>
                     <i className="fa fa-star" />
                 </div> {/* end chat-header */}
-                <div className="chat-history">
-                    <ul>
+                <div className="chat-history MessageContainer" >
+                    <ul className="MessagesList">
                         {this.showMessage(this.props.messHistory)}
                         <li>
                             <i className="fa fa-circle online" />
@@ -102,6 +136,9 @@ class NewComponentChat extends React.Component {
                             <i className="fa fa-circle online" style={{ color: '#DAE9DA' }} />
                         </li>
                     </ul>
+                    <div style={{ float: "left", clear: "both" }}
+                        ref={(el) => { this.messagesEnd = el; }}>
+                    </div>
                 </div> {/* end chat-history */}
                 <CpmInputMessages uploadFile={this.props.uploadFile} rid={this.props.rid} />
             </div>
